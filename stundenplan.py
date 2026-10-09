@@ -74,8 +74,9 @@ class AlmaWeb:
         self._erster = False
         r = self.s.get(urljoin(BASE, url), timeout=30)
         r.raise_for_status()
-        r.encoding = r.encoding or "utf-8"
-        return BeautifulSoup(r.text, "html.parser")
+        # Bytes übergeben: BeautifulSoup erkennt die Kodierung aus dem <meta charset>.
+        # (requests nimmt ohne charset-Header ISO-8859-1 an und zerlegt sonst die Umlaute.)
+        return BeautifulSoup(r.content, "html.parser")
 
 
 def links(soup: BeautifulSoup) -> list[tuple[str, str]]:
@@ -91,7 +92,9 @@ def folge(soup: BeautifulSoup, linktext: str) -> str:
     praefix = {h for t, h in alle if t.startswith(linktext) and not t.endswith(">")}
     if len(praefix) == 1:
         return praefix.pop()
-    raise SyncFehler(f"Link '{linktext}' nicht gefunden (Treffer: {len(praefix)})")
+    vorhanden = " | ".join(t for t, _ in alle[-40:])
+    raise SyncFehler(f"Link '{linktext}' nicht gefunden (Treffer: {len(praefix)}). "
+                     f"Links auf der Seite: {vorhanden}")
 
 
 # ---------------------------------------------------------------- Parsen
