@@ -1,0 +1,29 @@
+# Stundenplan-Sync – Konfiguration
+#
+# Einmal pro Semester anpassen: "semester" und den letzten Eintrag in "pfad"
+# (z. B. "Empfehlung für das 2. Fachsemester" im Sommersemester).
+
+[kalender]
+name = "WiWi 1. FS – Uni Leipzig"
+datei = "docs/stundenplan.ics"
+
+[almaweb]
+semester = "WiSe 2026/27"
+
+# Klickpfad im öffentlichen Vorlesungsverzeichnis, Linktexte exakt wie auf der Seite
+pfad = [
+  "07 - Wirtschaftswissenschaftliche Fakultät",
+  "Bachelor",
+  "Wirtschaftswissenschaften",
+  "Pflichtbereich",
+  "Empfehlung für das 1. Fachsemester",
+]
+
+# Welche Veranstaltungen in den Kalender kommen.
+# Leer lassen = alle Veranstaltungen aller Module auf der Seite oben.
+# Sonst Veranstaltungsnummern eintragen, z. B. wenn es mehrere Übungsgruppen gibt:
+# veranstaltungen = ["07-101-1106.VL01", "07-101-1106.ÜB01"]
+veranstaltungen = []
+
+# Pause zwischen zwei Seitenabrufen in Sekunden (schont den Uni-Server)
+pause = 1.5
